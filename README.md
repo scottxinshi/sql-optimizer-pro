@@ -1,6 +1,7 @@
 # SQL Optimizer Pro by Scott Xin Shi
 
-sqloptimzer.up.railway.app
+This this app!❤️ 
+[sqloptimzer.up.railway.app](https://sqloptimzer.up.railway.app/)
 
 A professional SQL query analysis and optimization tool designed for data engineers, developers, and database administrators.
 
@@ -212,4 +213,5 @@ We welcome contributions! Please feel free to submit:
 
 
 **Built with ❤️ for the data community** 
+
 
