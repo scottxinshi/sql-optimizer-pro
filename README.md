@@ -198,35 +198,6 @@ We welcome contributions! Please feel free to submit:
 6. Push to the branch: `git push origin feature-name`
 7. Submit a Pull Request
 
-## 📝 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🆘 Support
-
-- **Email**: support@sqloptimizerpro.com
-- **GitHub Issues**: [Create an issue](https://github.com/your-repo/issues)
-- **Documentation**: [View examples](http://localhost:5000/examples)
-
-## 🗺️ Roadmap
-
-### Phase 1 (Current)
-- ✅ Basic SQL analysis
-- ✅ Performance suggestions
-- ✅ Web interface
-- ✅ File upload support
-
-### Phase 2 (Next)
-- 🔄 Advanced query rewriting
-- 🔄 Execution plan analysis
-- 🔄 Performance benchmarking
-- 🔄 API rate limiting
-
-### Phase 3 (Future)
-- 🔄 Machine learning optimization
-- 🔄 Database-specific analysis
-- 🔄 Team collaboration features
-- 🔄 Enterprise integrations
 
 ## 🙏 Acknowledgments
 
@@ -236,5 +207,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - **Font Awesome**: For the amazing icons
 
 ---
+
 
 **Built with ❤️ for the data community** 
