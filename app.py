@@ -15,9 +15,9 @@ APP_CONFIG = {
     'author': 'Scott Xin Shi',
     'version': '1.0.0',
     'description': 'Professional SQL query analysis and optimization tool',
-    'github_url': 'https://github.com/yourusername/sql-optimizer-pro',
+    'github_url': 'https://github.com/scottxinshi/sql-optimizer-pro',
     'contact_email': 'scottxinshi@gmail.com',
-    'linkedin_url': 'https://github.com/scottxinshi/sql-optimizer-pro'
+    'linkedin_url': 'www.linkedin.com/in/scott-xin-shi'
 }
 
 # Configuration
@@ -144,3 +144,4 @@ if __name__ == '__main__':
     
 
     app.run(debug=debug, host='0.0.0.0', port=port) 
+
