@@ -1,0 +1,230 @@
+{% extends "base.html" %}
+
+{% block title %}About - SQL Optimizer Pro{% endblock %}
+
+{% block content %}
+<div class="main-container">
+    <div class="p-4">
+        <h2 class="mb-4"><i class="fas fa-info-circle me-2"></i>About SQL Optimizer Pro</h2>
+        
+        <!-- Mission Statement -->
+        <div class="result-card mb-4">
+            <h4><i class="fas fa-bullseye me-2"></i>Our Mission</h4>
+            <p class="lead">SQL Optimizer Pro is designed to help data engineers, developers, and database administrators optimize their SQL queries for better performance and efficiency.</p>
+            <p>We believe that every query can be optimized, and our tool provides the insights and suggestions needed to make your database operations faster and more reliable.</p>
+        </div>
+
+        <!-- Features -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="result-card h-100">
+                    <h4><i class="fas fa-search me-2"></i>What We Analyze</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Query structure and complexity</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>JOIN operations and efficiency</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>WHERE clause optimization</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Index usage recommendations</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Subquery performance</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Aggregation operations</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Missing LIMIT clauses</li>
+                        <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Wildcard SELECT statements</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="result-card h-100">
+                    <h4><i class="fas fa-lightbulb me-2"></i>What We Suggest</h4>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-arrow-right text-primary me-2"></i>Index creation statements</li>
+                        <li class="mb-2"><i class="fas fa-arrow-right text-primary me-2"></i>Query rewriting examples</li>
+                        <li class="mb-2"><i class="fas fa-arrow-right text-primary me-2"></i>JOIN optimization strategies</li>
+                        <li class="mb-2"><i class="fas fa-arrow-right text-primary me-2"></i>Performance improvement tips</li>
+                        <li class="mb-2"><i class="fas fa-arrow-right text-primary me-2"></i>Best practices recommendations</li>
+                        <li class="mb-2"><i class="fas fa-arrow-right text-primary me-2"></i>Code examples and alternatives</li>
+                        <li class="mb-2"><i class="fas fa-arrow-right text-primary me-2"></i>Complexity reduction strategies</li>
+                        <li class="mb-2"><i class="fas fa-arrow-right text-primary me-2"></i>Resource usage optimization</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technology Stack -->
+        <div class="result-card mb-4">
+            <h4><i class="fas fa-cogs me-2"></i>Technology Stack</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <h6><i class="fab fa-python me-2"></i>Backend</h6>
+                    <ul class="list-unstyled">
+                        <li>• Flask (Web Framework)</li>
+                        <li>• SQLParse (SQL Parsing)</li>
+                        <li>• SQLAlchemy (Database ORM)</li>
+                        <li>• Python 3.8+</li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h6><i class="fab fa-js-square me-2"></i>Frontend</h6>
+                    <ul class="list-unstyled">
+                        <li>• Bootstrap 5 (UI Framework)</li>
+                        <li>• Vanilla JavaScript</li>
+                        <li>• Prism.js (Syntax Highlighting)</li>
+                        <li>• Font Awesome (Icons)</li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h6><i class="fas fa-database me-2"></i>Database Support</h6>
+                    <ul class="list-unstyled">
+                        <li>• PostgreSQL</li>
+                        <li>• MySQL</li>
+                        <li>• SQLite</li>
+                        <li>• SQL Server</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Use Cases -->
+        <div class="result-card mb-4">
+            <h4><i class="fas fa-users me-2"></i>Who Can Benefit</h4>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="text-center">
+                        <i class="fas fa-user-tie fa-3x text-primary mb-3"></i>
+                        <h6>Data Engineers</h6>
+                        <p class="small">Optimize ETL processes and data pipelines</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-center">
+                        <i class="fas fa-code fa-3x text-success mb-3"></i>
+                        <h6>Developers</h6>
+                        <p class="small">Improve application database queries</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-center">
+                        <i class="fas fa-database fa-3x text-warning mb-3"></i>
+                        <h6>DBAs</h6>
+                        <p class="small">Monitor and optimize database performance</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-center">
+                        <i class="fas fa-graduation-cap fa-3x text-info mb-3"></i>
+                        <h6>Students</h6>
+                        <p class="small">Learn SQL optimization best practices</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Performance Metrics -->
+        <div class="result-card mb-4">
+            <h4><i class="fas fa-chart-line me-2"></i>Performance Metrics</h4>
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="text-center">
+                        <div class="performance-score score-excellent mb-2">
+                            <span>95%</span>
+                        </div>
+                        <h6>Query Analysis Accuracy</h6>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-center">
+                        <div class="performance-score score-good mb-2">
+                            <span>< 1s</span>
+                        </div>
+                        <h6>Analysis Speed</h6>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-center">
+                        <div class="performance-score score-fair mb-2">
+                            <span>15+</span>
+                        </div>
+                        <h6>Issue Types Detected</h6>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="text-center">
+                        <div class="performance-score score-poor mb-2">
+                            <span>24/7</span>
+                        </div>
+                        <h6>Availability</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Roadmap -->
+        <div class="result-card mb-4">
+            <h4><i class="fas fa-road me-2"></i>Future Roadmap</h4>
+            <div class="row">
+                <div class="col-md-4">
+                    <h6><i class="fas fa-rocket text-success me-2"></i>Phase 1 (Current)</h6>
+                    <ul class="list-unstyled">
+                        <li>• Basic SQL analysis</li>
+                        <li>• Performance suggestions</li>
+                        <li>• Web interface</li>
+                        <li>• File upload support</li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h6><i class="fas fa-plane text-warning me-2"></i>Phase 2 (Next)</h6>
+                    <ul class="list-unstyled">
+                        <li>• Advanced query rewriting</li>
+                        <li>• Execution plan analysis</li>
+                        <li>• Performance benchmarking</li>
+                        <li>• API rate limiting</li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h6><i class="fas fa-star text-info me-2"></i>Phase 3 (Future)</h6>
+                    <ul class="list-unstyled">
+                        <li>• Machine learning optimization</li>
+                        <li>• Database-specific analysis</li>
+                        <li>• Team collaboration features</li>
+                        <li>• Enterprise integrations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact & Support -->
+        <div class="result-card">
+            <h4><i class="fas fa-envelope me-2"></i>Get in Touch</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <h6>Support & Feedback</h6>
+                    <p>We're constantly improving SQL Optimizer Pro. If you have suggestions, found bugs, or need help, please reach out:</p>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-envelope me-2"></i>support@sqloptimizerpro.com</li>
+                        <li><i class="fab fa-github me-2"></i>GitHub Issues</li>
+                        <li><i class="fab fa-twitter me-2"></i>@SQLOptimizerPro</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h6>Contribute</h6>
+                    <p>This is an open-source project. We welcome contributions from the community:</p>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-code me-2"></i>Code contributions</li>
+                        <li><i class="fas fa-bug me-2"></i>Bug reports</li>
+                        <li><i class="fas fa-lightbulb me-2"></i>Feature requests</li>
+                        <li><i class="fas fa-book me-2"></i>Documentation improvements</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="text-center mt-4">
+            <a href="/" class="btn btn-primary btn-lg me-3">
+                <i class="fas fa-play me-2"></i>Try SQL Optimizer Pro
+            </a>
+            <a href="/examples" class="btn btn-outline-primary btn-lg">
+                <i class="fas fa-lightbulb me-2"></i>View Examples
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %} 

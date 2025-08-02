@@ -1,0 +1,217 @@
+{% extends "base.html" %}
+
+{% block title %}{{ config.author }} - Data Engineer & SQL Expert{% endblock %}
+
+{% block content %}
+<div class="main-container">
+    <div class="p-4">
+        <!-- Author Hero Section -->
+        <div class="hero-section mb-4">
+            <div class="text-center">
+                <div class="mb-4">
+                    <i class="fas fa-user-tie fa-5x text-white"></i>
+                </div>
+                <h1 class="hero-title">{{ config.author }}</h1>
+                <p class="hero-subtitle">Data Engineer & SQL Optimization Expert</p>
+                <div class="mt-3">
+                    <a href="{{ config.linkedin_url }}" class="btn btn-light btn-lg me-3" target="_blank">
+                        <i class="fab fa-linkedin me-2"></i>LinkedIn
+                    </a>
+                    <a href="{{ config.github_url }}" class="btn btn-outline-light btn-lg" target="_blank">
+                        <i class="fab fa-github me-2"></i>GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Me Section -->
+        <div class="result-card mb-4">
+            <h3><i class="fas fa-user me-2"></i>About Me</h3>
+            <p class="lead">I'm Scott Xin Shi, a passionate data engineer with expertise in SQL optimization, database performance, and data pipeline development.</p>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>🎯 What I Do</h5>
+                    <ul>
+                        <li>SQL query optimization and performance tuning</li>
+                        <li>Database design and architecture</li>
+                        <li>ETL pipeline development</li>
+                        <li>Data warehouse optimization</li>
+                        <li>Performance monitoring and analytics</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5>🛠️ Technologies</h5>
+                    <ul>
+                        <li>SQL (PostgreSQL, MySQL, SQL Server)</li>
+                        <li>Python (Flask, Pandas, SQLAlchemy)</li>
+                        <li>Data Engineering tools</li>
+                        <li>Cloud platforms (AWS, Azure, GCP)</li>
+                        <li>Big Data technologies</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- My Projects Section -->
+        <div class="result-card mb-4">
+            <h3><i class="fas fa-code me-2"></i>My Projects</h3>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-database text-primary me-2"></i>
+                                {{ config.name }}
+                            </h5>
+                            <p class="card-text">Professional SQL query analysis and optimization tool that helps data engineers improve their database performance.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-success">Live</span>
+                                <a href="/" class="btn btn-primary btn-sm">Try It</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-chart-line text-success me-2"></i>
+                                Data Pipeline Tools
+                            </h5>
+                            <p class="card-text">Collection of tools and utilities for building efficient data pipelines and ETL processes.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="badge bg-warning">In Development</span>
+                                <a href="#" class="btn btn-outline-primary btn-sm">Coming Soon</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Expertise Section -->
+        <div class="result-card mb-4">
+            <h3><i class="fas fa-star me-2"></i>Areas of Expertise</h3>
+            
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <div class="text-center">
+                        <i class="fas fa-tachometer-alt fa-3x text-primary mb-3"></i>
+                        <h5>Performance Optimization</h5>
+                        <p>Expert in identifying and resolving SQL performance bottlenecks, index optimization, and query tuning.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-3">
+                    <div class="text-center">
+                        <i class="fas fa-cogs fa-3x text-success mb-3"></i>
+                        <h5>Data Engineering</h5>
+                        <p>Building scalable data pipelines, ETL processes, and data warehouse solutions for enterprise applications.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-3">
+                    <div class="text-center">
+                        <i class="fas fa-cloud fa-3x text-info mb-3"></i>
+                        <h5>Cloud Solutions</h5>
+                        <p>Designing and implementing data solutions on cloud platforms with focus on scalability and cost optimization.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Services Section -->
+        <div class="result-card mb-4">
+            <h3><i class="fas fa-briefcase me-2"></i>Services I Offer</h3>
+            
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <div class="card border-primary">
+                        <div class="card-header bg-primary text-white">
+                            <h5 class="mb-0"><i class="fas fa-search me-2"></i>SQL Optimization Consulting</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li>✅ Query performance analysis</li>
+                                <li>✅ Index optimization strategies</li>
+                                <li>✅ Database schema review</li>
+                                <li>✅ Performance monitoring setup</li>
+                            </ul>
+                            <a href="mailto:{{ config.contact_email }}" class="btn btn-primary">Get Quote</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <div class="card border-success">
+                        <div class="card-header bg-success text-white">
+                            <h5 class="mb-0"><i class="fas fa-graduation-cap me-2"></i>Training & Workshops</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                <li>✅ SQL optimization best practices</li>
+                                <li>✅ Database performance tuning</li>
+                                <li>✅ Data engineering fundamentals</li>
+                                <li>✅ Hands-on workshops</li>
+                            </ul>
+                            <a href="mailto:{{ config.contact_email }}" class="btn btn-success">Book Session</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="result-card">
+            <h3><i class="fas fa-envelope me-2"></i>Get In Touch</h3>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h5>Let's Work Together</h5>
+                    <p>I'm Scott Xin Shi, and I'm always interested in new opportunities and collaborations. Whether you need SQL optimization, data engineering help, or just want to discuss data-related topics, feel free to reach out!</p>
+                    
+                    <div class="mb-3">
+                        <i class="fas fa-envelope me-2 text-primary"></i>
+                        <a href="mailto:{{ config.contact_email }}">{{ config.contact_email }}</a>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <i class="fab fa-linkedin me-2 text-primary"></i>
+                        <a href="{{ config.linkedin_url }}" target="_blank">Connect on LinkedIn</a>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <i class="fab fa-github me-2 text-primary"></i>
+                        <a href="{{ config.github_url }}" target="_blank">View my GitHub</a>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <h5>What I Can Help With</h5>
+                    <ul>
+                        <li>🔍 SQL query performance analysis</li>
+                        <li>⚡ Database optimization</li>
+                        <li>📊 Data pipeline development</li>
+                        <li>🏗️ Data architecture design</li>
+                        <li>📈 Performance monitoring</li>
+                        <li>🎓 Team training and workshops</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="text-center mt-4">
+            <a href="/" class="btn btn-primary btn-lg me-3">
+                <i class="fas fa-play me-2"></i>Try {{ config.name }}
+            </a>
+            <a href="mailto:{{ config.contact_email }}" class="btn btn-outline-primary btn-lg">
+                <i class="fas fa-envelope me-2"></i>Contact Me
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %} 

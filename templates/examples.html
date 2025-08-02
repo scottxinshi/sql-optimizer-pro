@@ -1,0 +1,351 @@
+{% extends "base.html" %}
+
+{% block title %}SQL Examples - SQL Optimizer Pro{% endblock %}
+
+{% block content %}
+<div class="main-container">
+    <div class="p-4">
+        <h2 class="mb-4"><i class="fas fa-lightbulb me-2"></i>SQL Optimization Examples</h2>
+        <p class="lead">Explore these examples to understand common SQL performance issues and their solutions.</p>
+
+        <!-- Example Categories -->
+        <div class="row">
+            <div class="col-md-3">
+                <div class="list-group" id="exampleTabs" role="tablist">
+                    <a class="list-group-item list-group-item-action active" id="basic-tab" data-bs-toggle="list" href="#basic" role="tab">
+                        <i class="fas fa-star me-2"></i>Basic Issues
+                    </a>
+                    <a class="list-group-item list-group-item-action" id="joins-tab" data-bs-toggle="list" href="#joins" role="tab">
+                        <i class="fas fa-link me-2"></i>Join Optimization
+                    </a>
+                    <a class="list-group-item list-group-item-action" id="indexes-tab" data-bs-toggle="list" href="#indexes" role="tab">
+                        <i class="fas fa-database me-2"></i>Index Issues
+                    </a>
+                    <a class="list-group-item list-group-item-action" id="subqueries-tab" data-bs-toggle="list" href="#subqueries" role="tab">
+                        <i class="fas fa-code-branch me-2"></i>Subqueries
+                    </a>
+                    <a class="list-group-item list-group-item-action" id="aggregation-tab" data-bs-toggle="list" href="#aggregation" role="tab">
+                        <i class="fas fa-chart-bar me-2"></i>Aggregation
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <div class="tab-content" id="exampleTabContent">
+                    <!-- Basic Issues -->
+                    <div class="tab-pane fade show active" id="basic" role="tabpanel">
+                        <div class="result-card">
+                            <h4>Common Basic Issues</h4>
+                            
+                            <div class="mb-4">
+                                <h5>1. SELECT * (Wildcard Select)</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6 class="text-danger">❌ Problematic Query:</h6>
+                                        <pre><code class="language-sql">SELECT * FROM users 
+WHERE age > 25 
+ORDER BY name;</code></pre>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6 class="text-success">✅ Optimized Query:</h6>
+                                        <pre><code class="language-sql">SELECT id, name, email, age 
+FROM users 
+WHERE age > 25 
+ORDER BY name;</code></pre>
+                                    </div>
+                                </div>
+                                <div class="alert alert-info">
+                                    <strong>Issue:</strong> SELECT * retrieves all columns, including unnecessary ones.
+                                    <br><strong>Solution:</strong> Specify only the columns you need.
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h5>2. Missing LIMIT Clause</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6 class="text-danger">❌ Problematic Query:</h6>
+                                        <pre><code class="language-sql">SELECT id, name, email 
+FROM users 
+ORDER BY created_at DESC;</code></pre>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6 class="text-success">✅ Optimized Query:</h6>
+                                        <pre><code class="language-sql">SELECT id, name, email 
+FROM users 
+ORDER BY created_at DESC 
+LIMIT 100;</code></pre>
+                                    </div>
+                                </div>
+                                <div class="alert alert-info">
+                                    <strong>Issue:</strong> No LIMIT clause may return large result sets.
+                                    <br><strong>Solution:</strong> Add LIMIT to control result size.
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h5>3. Functions in WHERE Clause</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6 class="text-danger">❌ Problematic Query:</h6>
+                                        <pre><code class="language-sql">SELECT * FROM users 
+WHERE UPPER(name) = 'JOHN';</code></pre>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6 class="text-success">✅ Optimized Query:</h6>
+                                        <pre><code class="language-sql">SELECT * FROM users 
+WHERE name = 'john';</code></pre>
+                                    </div>
+                                </div>
+                                <div class="alert alert-info">
+                                    <strong>Issue:</strong> Functions in WHERE clause prevent index usage.
+                                    <br><strong>Solution:</strong> Avoid functions or create function-based indexes.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Join Optimization -->
+                    <div class="tab-pane fade" id="joins" role="tabpanel">
+                        <div class="result-card">
+                            <h4>Join Optimization Examples</h4>
+                            
+                            <div class="mb-4">
+                                <h5>1. CROSS JOIN Issues</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6 class="text-danger">❌ Problematic Query:</h6>
+                                        <pre><code class="language-sql">SELECT * FROM users 
+CROSS JOIN orders;</code></pre>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6 class="text-success">✅ Optimized Query:</h6>
+                                        <pre><code class="language-sql">SELECT u.name, o.order_date 
+FROM users u 
+JOIN orders o ON u.id = o.user_id;</code></pre>
+                                    </div>
+                                </div>
+                                <div class="alert alert-warning">
+                                    <strong>Issue:</strong> CROSS JOIN creates Cartesian product.
+                                    <br><strong>Solution:</strong> Use explicit JOIN conditions.
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h5>2. Multiple Joins</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6 class="text-danger">❌ Complex Query:</h6>
+                                        <pre><code class="language-sql">SELECT u.name, o.order_date, p.name 
+FROM users u 
+JOIN orders o ON u.id = o.user_id 
+JOIN order_items oi ON o.id = oi.order_id 
+JOIN products p ON oi.product_id = p.id 
+JOIN categories c ON p.category_id = c.id;</code></pre>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6 class="text-success">✅ Optimized with CTE:</h6>
+                                        <pre><code class="language-sql">WITH user_orders AS (
+    SELECT u.name, o.order_date, o.id 
+    FROM users u 
+    JOIN orders o ON u.id = o.user_id
+)
+SELECT uo.name, uo.order_date, p.name 
+FROM user_orders uo 
+JOIN order_items oi ON uo.id = oi.order_id 
+JOIN products p ON oi.product_id = p.id;</code></pre>
+                                    </div>
+                                </div>
+                                <div class="alert alert-info">
+                                    <strong>Issue:</strong> Too many joins can be hard to optimize.
+                                    <br><strong>Solution:</strong> Use CTEs or temporary tables.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Index Issues -->
+                    <div class="tab-pane fade" id="indexes" role="tabpanel">
+                        <div class="result-card">
+                            <h4>Index Optimization Examples</h4>
+                            
+                            <div class="mb-4">
+                                <h5>1. Missing Indexes on WHERE Columns</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6 class="text-danger">❌ Query without Index:</h6>
+                                        <pre><code class="language-sql">SELECT * FROM users 
+WHERE email = 'john@example.com';</code></pre>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6 class="text-success">✅ Recommended Index:</h6>
+                                        <pre><code class="language-sql">CREATE INDEX idx_users_email 
+ON users(email);</code></pre>
+                                    </div>
+                                </div>
+                                <div class="alert alert-info">
+                                    <strong>Issue:</strong> No index on email column causes full table scan.
+                                    <br><strong>Solution:</strong> Create index on frequently queried columns.
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h5>2. Composite Indexes</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6 class="text-danger">❌ Multiple Single Indexes:</h6>
+                                        <pre><code class="language-sql">SELECT * FROM orders 
+WHERE user_id = 123 
+AND status = 'pending' 
+AND created_at > '2024-01-01';</code></pre>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6 class="text-success">✅ Composite Index:</h6>
+                                        <pre><code class="language-sql">CREATE INDEX idx_orders_user_status_date 
+ON orders(user_id, status, created_at);</code></pre>
+                                    </div>
+                                </div>
+                                <div class="alert alert-info">
+                                    <strong>Issue:</strong> Multiple single indexes are less efficient.
+                                    <br><strong>Solution:</strong> Create composite indexes for multi-column queries.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Subqueries -->
+                    <div class="tab-pane fade" id="subqueries" role="tabpanel">
+                        <div class="result-card">
+                            <h4>Subquery Optimization Examples</h4>
+                            
+                            <div class="mb-4">
+                                <h5>1. IN Subquery vs JOIN</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6 class="text-danger">❌ Subquery Approach:</h6>
+                                        <pre><code class="language-sql">SELECT * FROM users 
+WHERE id IN (
+    SELECT user_id FROM orders 
+    WHERE total_amount > 1000
+);</code></pre>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6 class="text-success">✅ JOIN Approach:</h6>
+                                        <pre><code class="language-sql">SELECT DISTINCT u.* 
+FROM users u 
+JOIN orders o ON u.id = o.user_id 
+WHERE o.total_amount > 1000;</code></pre>
+                                    </div>
+                                </div>
+                                <div class="alert alert-info">
+                                    <strong>Issue:</strong> Subqueries can be less efficient than JOINs.
+                                    <br><strong>Solution:</strong> Use JOINs when possible.
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h5>2. Correlated Subquery</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6 class="text-danger">❌ Correlated Subquery:</h6>
+                                        <pre><code class="language-sql">SELECT u.name, 
+    (SELECT COUNT(*) FROM orders o 
+     WHERE o.user_id = u.id) as order_count 
+FROM users u;</code></pre>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6 class="text-success">✅ JOIN with Aggregation:</h6>
+                                        <pre><code class="language-sql">SELECT u.name, 
+    COUNT(o.id) as order_count 
+FROM users u 
+LEFT JOIN orders o ON u.id = o.user_id 
+GROUP BY u.id, u.name;</code></pre>
+                                    </div>
+                                </div>
+                                <div class="alert alert-warning">
+                                    <strong>Issue:</strong> Correlated subqueries execute for each row.
+                                    <br><strong>Solution:</strong> Use JOINs with GROUP BY.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Aggregation -->
+                    <div class="tab-pane fade" id="aggregation" role="tabpanel">
+                        <div class="result-card">
+                            <h4>Aggregation Optimization Examples</h4>
+                            
+                            <div class="mb-4">
+                                <h5>1. GROUP BY Optimization</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6 class="text-danger">❌ Without Index:</h6>
+                                        <pre><code class="language-sql">SELECT category_id, 
+    COUNT(*) as product_count 
+FROM products 
+GROUP BY category_id;</code></pre>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6 class="text-success">✅ With Index:</h6>
+                                        <pre><code class="language-sql">CREATE INDEX idx_products_category 
+ON products(category_id);
+
+SELECT category_id, 
+    COUNT(*) as product_count 
+FROM products 
+GROUP BY category_id;</code></pre>
+                                    </div>
+                                </div>
+                                <div class="alert alert-info">
+                                    <strong>Issue:</strong> GROUP BY without index requires sorting.
+                                    <br><strong>Solution:</strong> Create index on GROUP BY columns.
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <h5>2. HAVING vs WHERE</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6 class="text-danger">❌ Using HAVING:</h6>
+                                        <pre><code class="language-sql">SELECT category_id, 
+    COUNT(*) as product_count 
+FROM products 
+GROUP BY category_id 
+HAVING COUNT(*) > 10;</code></pre>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <h6 class="text-success">✅ Using WHERE (if possible):</h6>
+                                        <pre><code class="language-sql">SELECT category_id, 
+    COUNT(*) as product_count 
+FROM products 
+WHERE category_id IS NOT NULL 
+GROUP BY category_id 
+HAVING COUNT(*) > 10;</code></pre>
+                                    </div>
+                                </div>
+                                <div class="alert alert-info">
+                                    <strong>Issue:</strong> HAVING filters after aggregation.
+                                    <br><strong>Solution:</strong> Use WHERE to filter before aggregation when possible.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Try Examples Section -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="result-card text-center">
+                    <h4><i class="fas fa-play me-2"></i>Try These Examples</h4>
+                    <p class="lead">Copy any of the examples above and paste them into the SQL analyzer to see the optimization suggestions!</p>
+                    <a href="/" class="btn btn-primary btn-lg">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Analyzer
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

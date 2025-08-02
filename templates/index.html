@@ -1,0 +1,381 @@
+{% extends "base.html" %}
+
+{% block title %}{{ config.name }} by {{ config.author }} - Analyze & Optimize Your SQL Queries{% endblock %}
+
+{% block content %}
+<div class="main-container">
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <h1 class="hero-title">{{ config.name }}</h1>
+        <p class="hero-subtitle">{{ config.description }} by {{ config.author }}</p>
+        <div class="row justify-content-center">
+            <div class="col-md-3">
+                <div class="text-center">
+                    <i class="fas fa-rocket feature-icon"></i>
+                    <h5>Fast Analysis</h5>
+                    <p>Instant performance insights</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="text-center">
+                    <i class="fas fa-lightbulb feature-icon"></i>
+                    <h5>Smart Suggestions</h5>
+                    <p>Actionable optimization tips</p>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="text-center">
+                    <i class="fas fa-chart-line feature-icon"></i>
+                    <h5>Performance Score</h5>
+                    <p>Quantified query health</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="p-4">
+        <!-- Input Section -->
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="result-card">
+                    <h4><i class="fas fa-edit me-2"></i>Input Your SQL</h4>
+                    
+                    <!-- Tab Navigation -->
+                    <ul class="nav nav-tabs" id="inputTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="text-tab" data-bs-toggle="tab" data-bs-target="#text-input" type="button" role="tab">
+                                <i class="fas fa-keyboard me-2"></i>Text Input
+                            </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="file-tab" data-bs-toggle="tab" data-bs-target="#file-input" type="button" role="tab">
+                                <i class="fas fa-file-upload me-2"></i>File Upload
+                            </button>
+                        </li>
+                    </ul>
+
+                    <!-- Tab Content -->
+                    <div class="tab-content mt-3" id="inputTabsContent">
+                        <!-- Text Input Tab -->
+                        <div class="tab-pane fade show active" id="text-input" role="tabpanel">
+                            <form id="sqlForm">
+                                <div class="mb-3">
+                                    <textarea 
+                                        class="form-control sql-editor" 
+                                        id="sqlInput" 
+                                        rows="10" 
+                                        placeholder="Enter your SQL query here...&#10;&#10;Example:&#10;SELECT * FROM users WHERE age > 25 ORDER BY name;"
+                                    ></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="fas fa-search me-2"></i>Analyze Query
+                                </button>
+                            </form>
+                        </div>
+
+                        <!-- File Upload Tab -->
+                        <div class="tab-pane fade" id="file-input" role="tabpanel">
+                            <form id="fileForm" enctype="multipart/form-data">
+                                <div class="file-upload-area" id="dropZone">
+                                    <i class="fas fa-cloud-upload-alt fa-3x mb-3 text-muted"></i>
+                                    <h5>Drop your SQL file here</h5>
+                                    <p class="text-muted">or click to browse</p>
+                                    <input type="file" id="sqlFile" name="sql_file" accept=".sql,.txt" style="display: none;">
+                                </div>
+                                <div class="mt-3">
+                                    <button type="submit" class="btn btn-primary w-100" disabled id="fileSubmitBtn">
+                                        <i class="fas fa-upload me-2"></i>Upload & Analyze
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="col-lg-6">
+                <div class="result-card">
+                    <h4><i class="fas fa-chart-bar me-2"></i>Analysis Results</h4>
+                    
+                    <!-- Loading State -->
+                    <div class="loading" id="loading">
+                        <div class="spinner"></div>
+                        <p>Analyzing your SQL query...</p>
+                    </div>
+
+                    <!-- Initial State -->
+                    <div id="initialState" class="text-center py-5">
+                        <i class="fas fa-database fa-3x text-muted mb-3"></i>
+                        <h5>Ready to Analyze</h5>
+                        <p class="text-muted">Enter your SQL query or upload a file to get started</p>
+                    </div>
+
+                    <!-- Results Content -->
+                    <div id="resultsContent" style="display: none;">
+                        <!-- Summary -->
+                        <div class="row mb-4">
+                            <div class="col-md-6">
+                                <div class="text-center">
+                                    <h6>Total Queries</h6>
+                                    <h3 id="totalQueries">0</h3>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="text-center">
+                                    <h6>Issues Found</h6>
+                                    <h3 id="issuesFound">0</h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Performance Score -->
+                        <div class="text-center mb-4">
+                            <h6>Overall Performance Score</h6>
+                            <div class="performance-score" id="performanceScore">
+                                <span id="scoreValue">0</span>
+                            </div>
+                        </div>
+
+                        <!-- Query Results -->
+                        <div id="queryResults"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="row mt-5">
+            <div class="col-md-4">
+                <div class="feature-card text-center">
+                    <i class="fas fa-search feature-icon"></i>
+                    <h5>Deep Analysis</h5>
+                    <p>Comprehensive analysis of query structure, joins, indexes, and performance bottlenecks.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card text-center">
+                    <i class="fas fa-magic feature-icon"></i>
+                    <h5>Smart Suggestions</h5>
+                    <p>Get actionable recommendations for query optimization and performance improvement.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card text-center">
+                    <i class="fas fa-code feature-icon"></i>
+                    <h5>Code Examples</h5>
+                    <p>See practical examples of optimized queries and index creation statements.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const sqlForm = document.getElementById('sqlForm');
+    const fileForm = document.getElementById('fileForm');
+    const sqlInput = document.getElementById('sqlInput');
+    const sqlFile = document.getElementById('sqlFile');
+    const dropZone = document.getElementById('dropZone');
+    const fileSubmitBtn = document.getElementById('fileSubmitBtn');
+    const loading = document.getElementById('loading');
+    const initialState = document.getElementById('initialState');
+    const resultsContent = document.getElementById('resultsContent');
+
+    // Handle text form submission
+    sqlForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const sqlText = sqlInput.value.trim();
+        if (sqlText) {
+            analyzeSQL({ sql_text: sqlText });
+        }
+    });
+
+    // Handle file form submission
+    fileForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData();
+        formData.append('sql_file', sqlFile.files[0]);
+        analyzeSQL(formData);
+    });
+
+    // File upload handling
+    dropZone.addEventListener('click', () => sqlFile.click());
+    
+    sqlFile.addEventListener('change', function() {
+        if (this.files.length > 0) {
+            fileSubmitBtn.disabled = false;
+            dropZone.innerHTML = `
+                <i class="fas fa-file-code fa-3x mb-3 text-success"></i>
+                <h5>${this.files[0].name}</h5>
+                <p class="text-muted">Ready to analyze</p>
+            `;
+        }
+    });
+
+    // Drag and drop functionality
+    dropZone.addEventListener('dragover', function(e) {
+        e.preventDefault();
+        this.classList.add('dragover');
+    });
+
+    dropZone.addEventListener('dragleave', function(e) {
+        e.preventDefault();
+        this.classList.remove('dragover');
+    });
+
+    dropZone.addEventListener('drop', function(e) {
+        e.preventDefault();
+        this.classList.remove('dragover');
+        const files = e.dataTransfer.files;
+        if (files.length > 0) {
+            sqlFile.files = files;
+            fileSubmitBtn.disabled = false;
+            dropZone.innerHTML = `
+                <i class="fas fa-file-code fa-3x mb-3 text-success"></i>
+                <h5>${files[0].name}</h5>
+                <p class="text-muted">Ready to analyze</p>
+            `;
+        }
+    });
+
+    function analyzeSQL(data) {
+        // Show loading state
+        loading.style.display = 'block';
+        initialState.style.display = 'none';
+        resultsContent.style.display = 'none';
+
+        fetch('/analyze', {
+            method: 'POST',
+            body: data
+        })
+        .then(response => response.json())
+        .then(data => {
+            loading.style.display = 'none';
+            
+            if (data.error) {
+                showError(data.error);
+            } else {
+                displayResults(data);
+            }
+        })
+        .catch(error => {
+            loading.style.display = 'none';
+            showError('An error occurred while analyzing the query.');
+        });
+    }
+
+    function displayResults(data) {
+        // Update summary
+        document.getElementById('totalQueries').textContent = data.summary.total_queries;
+        document.getElementById('issuesFound').textContent = data.summary.issues_found;
+        
+        // Update performance score
+        const score = Math.round(data.summary.optimization_score);
+        document.getElementById('scoreValue').textContent = score;
+        
+        const scoreElement = document.getElementById('performanceScore');
+        scoreElement.className = 'performance-score';
+        if (score >= 80) {
+            scoreElement.classList.add('score-excellent');
+        } else if (score >= 60) {
+            scoreElement.classList.add('score-good');
+        } else if (score >= 40) {
+            scoreElement.classList.add('score-fair');
+        } else {
+            scoreElement.classList.add('score-poor');
+        }
+
+        // Display query results
+        const queryResults = document.getElementById('queryResults');
+        queryResults.innerHTML = '';
+
+        data.queries.forEach((query, index) => {
+            const queryDiv = document.createElement('div');
+            queryDiv.className = 'mb-4';
+            queryDiv.innerHTML = `
+                <h6>Query ${query.id}</h6>
+                <div class="mb-3">
+                    <pre><code class="language-sql">${query.formatted_query}</code></pre>
+                </div>
+                
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <strong>Type:</strong> ${query.analysis.query_type}
+                    </div>
+                    <div class="col-md-6">
+                        <strong>Performance:</strong> 
+                        <span class="badge bg-${getPerformanceBadgeColor(query.analysis.estimated_performance)}">
+                            ${query.analysis.estimated_performance}
+                        </span>
+                    </div>
+                </div>
+
+                ${query.analysis.issues.length > 0 ? `
+                    <div class="mb-3">
+                        <h6>Issues Found:</h6>
+                        ${query.analysis.issues.map(issue => `
+                            <div class="mb-2">
+                                <span class="issue-badge issue-${issue.severity}">${issue.severity.toUpperCase()}</span>
+                                <span class="ms-2">${issue.message}</span>
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : '<div class="mb-3"><p class="text-success"><i class="fas fa-check-circle me-2"></i>No issues found!</p></div>'}
+
+                ${query.suggestions.length > 0 ? `
+                    <div class="mb-3">
+                        <h6>Optimization Suggestions:</h6>
+                        ${query.suggestions.map(suggestion => `
+                            <div class="suggestion-card">
+                                <h6>${suggestion.title}</h6>
+                                <p class="mb-2">${suggestion.description}</p>
+                                <div class="mb-2">
+                                    <strong>Impact:</strong> ${suggestion.impact}
+                                </div>
+                                ${suggestion.code_example ? `
+                                    <div>
+                                        <strong>Example:</strong>
+                                        <pre><code class="language-sql">${suggestion.code_example}</code></pre>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                ` : ''}
+            `;
+            queryResults.appendChild(queryDiv);
+        });
+
+        // Show results
+        resultsContent.style.display = 'block';
+        
+        // Highlight syntax
+        Prism.highlightAll();
+    }
+
+    function showError(message) {
+        initialState.style.display = 'block';
+        initialState.innerHTML = `
+            <i class="fas fa-exclamation-triangle fa-3x text-danger mb-3"></i>
+            <h5>Error</h5>
+            <p class="text-danger">${message}</p>
+        `;
+    }
+
+    function getPerformanceBadgeColor(performance) {
+        switch(performance) {
+            case 'excellent': return 'success';
+            case 'good': return 'primary';
+            case 'fair': return 'warning';
+            case 'poor': return 'danger';
+            default: return 'secondary';
+        }
+    }
+});
+</script>
+{% endblock %} 
