@@ -16,8 +16,8 @@ APP_CONFIG = {
     'version': '1.0.0',
     'description': 'Professional SQL query analysis and optimization tool',
     'github_url': 'https://github.com/yourusername/sql-optimizer-pro',
-    'contact_email': 'scott.xin.shi@example.com',
-    'linkedin_url': 'https://linkedin.com/in/yourusername'
+    'contact_email': 'scottxinshi@gmail.com',
+    'linkedin_url': 'https://github.com/scottxinshi/sql-optimizer-pro'
 }
 
 # Configuration
@@ -142,4 +142,5 @@ if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     debug = os.environ.get('FLASK_ENV') == 'development'
     
+
     app.run(debug=debug, host='0.0.0.0', port=port) 
